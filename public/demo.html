@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediNova - Healthcare AI Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        .medical-gradient {
+            background: linear-gradient(135deg, #2563eb 0%, #10b981 100%);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-green-50">
+    <!-- Header -->
+    <header class="medical-gradient text-white shadow-lg">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg">
+                        <i data-lucide="stethoscope" class="w-6 h-6 text-blue-600"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold">MediNova</h1>
+                        <p class="text-sm opacity-90">AI-Powered Healthcare Diagnosis</p>
+                    </div>
+                </div>
+                <div class="bg-yellow-500 text-yellow-900 px-3 py-1 rounded-full text-sm font-medium">
+                    DEMO Version
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm border-b sticky top-0 z-40">
+        <div class="container mx-auto px-4">
+            <div class="flex space-x-1">
+                <button onclick="showPage('symptom-checker')" class="flex-1 py-4 px-4 text-center font-medium text-blue-600 border-b-2 border-blue-600 bg-blue-50">
+                    <div class="flex flex-col items-center space-y-1">
+                        <i data-lucide="stethoscope" class="w-5 h-5"></i>
+                        <span class="text-sm">Symptom Checker</span>
+                    </div>
+                </button>
+                <button onclick="showPage('appointment-booking')" class="flex-1 py-4 px-4 text-center font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">
+                    <div class="flex flex-col items-center space-y-1">
+                        <i data-lucide="calendar" class="w-5 h-5"></i>
+                        <span class="text-sm">Appointment Booking</span>
+                    </div>
+                </button>
+                <button onclick="showPage('scan-analysis')" class="flex-1 py-4 px-4 text-center font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">
+                    <div class="flex flex-col items-center space-y-1">
+                        <i data-lucide="brain" class="w-5 h-5"></i>
+                        <span class="text-sm">Scan Analysis</span>
+                    </div>
+                </button>
+                <button onclick="showPage('dashboard')" class="flex-1 py-4 px-4 text-center font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">
+                    <div class="flex flex-col items-center space-y-1">
+                        <i data-lucide="activity" class="w-5 h-5"></i>
+                        <span class="text-sm">Dashboard</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Symptom Checker Page -->
+        <div id="symptom-checker" class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Demo Badge -->
+            <div class="lg:col-span-2">
+                <div class="bg-yellow-100 border border-yellow-300 rounded-lg p-3 mb-6">
+                    <div class="flex items-center space-x-2">
+                        <i data-lucide="alert-triangle" class="w-5 h-5 text-yellow-600"></i>
+                        <span class="font-medium text-yellow-800">DEMO — AI Analysis Simulated</span>
+                    </div>
+                </div>
+
+                <!-- Hero Card -->
+                <div class="bg-white rounded-lg shadow-lg p-8 bg-gradient-to-r from-blue-50 to-green-50 mb-6">
+                    <div class="text-center">
+                        <div class="flex justify-center mb-4">
+                            <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center">
+                                <i data-lucide="stethoscope" class="w-8 h-8 text-white"></i>
+                            </div>
+                        </div>
+                        <h2 class="text-3xl font-bold text-gray-800 mb-2">AI Symptom Checker</h2>
+                        <p class="text-lg text-gray-600">Describe your symptoms and get AI-powered analysis</p>
+                    </div>
+                </div>
+
+                <!-- Input Area -->
+                <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                    <div class="flex space-x-4">
+                        <input type="text" id="symptom-input" placeholder="Enter your symptoms..." 
+                               class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent text-lg">
+                        <button onclick="analyzeSymptoms()" class="px-8 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
+                            Analyze
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Analysis Results -->
+                <div id="analysis-results" class="space-y-4 hidden">
+                    <!-- Results will be added here -->
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                <!-- Urgency Indicator -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center space-x-2">
+                        <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+                        <span>Urgency Level</span>
+                    </h3>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-4 h-4 rounded-full bg-yellow-500"></div>
+                        <span class="font-semibold">Medium</span>
+                    </div>
+                </div>
+
+                <!-- Chat History -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center space-x-2">
+                        <i data-lucide="clock" class="w-5 h-5"></i>
+                        <span>Recent Queries</span>
+                    </h3>
+                    <div id="chat-history" class="space-y-3">
+                        <p class="text-gray-500 text-sm">No recent queries</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Other pages (hidden by default) -->
+        <div id="appointment-booking" class="max-w-7xl mx-auto hidden">
+            <div class="bg-yellow-100 border border-yellow-300 rounded-lg p-3 mb-6">
+                <div class="flex items-center space-x-2">
+                    <i data-lucide="alert-triangle" class="w-5 h-5 text-yellow-600"></i>
+                    <span class="font-medium text-yellow-800">DEMO — Booking System Simulated</span>
+                </div>
+            </div>
+            
+            <!-- Calendar Widget -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <h3 class="text-xl font-semibold mb-6 flex items-center space-x-2">
+                    <i data-lucide="calendar" class="w-5 h-5"></i>
+                    <span>Select Date</span>
+                    <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full">DEMO</span>
+                </h3>
+                <div class="grid grid-cols-7 gap-2">
+                    <div class="text-center text-sm font-medium text-gray-500 p-2">Sun</div>
+                    <div class="text-center text-sm font-medium text-gray-500 p-2">Mon</div>
+                    <div class="text-center text-sm font-medium text-gray-500 p-2">Tue</div>
+                    <div class="text-center text-sm font-medium text-gray-500 p-2">Wed</div>
+                    <div class="text-center text-sm font-medium text-gray-500 p-2">Thu</div>
+                    <div class="text-center text-sm font-medium text-gray-500 p-2">Fri</div>
+                    <div class="text-center text-sm font-medium text-gray-500 p-2">Sat</div>
+                    <div class="p-3 rounded-lg text-sm font-medium bg-green-50 text-green-700 border border-green-200 cursor-pointer hover:bg-green-100">1</div>
+                    <div class="p-3 rounded-lg text-sm font-medium bg-green-50 text-green-700 border border-green-200 cursor-pointer hover:bg-green-100">2</div>
+                    <div class="p-3 rounded-lg text-sm font-medium bg-gray-100 text-gray-400 cursor-not-allowed">3</div>
+                    <div class="p-3 rounded-lg text-sm font-medium bg-green-50 text-green-700 border border-green-200 cursor-pointer hover:bg-green-100">4</div>
+                    <div class="p-3 rounded-lg text-sm font-medium bg-green-50 text-green-700 border border-green-200 cursor-pointer hover:bg-green-100">5</div>
+                    <div class="p-3 rounded-lg text-sm font-medium bg-blue-100 text-blue-800 border-2 border-blue-300">6</div>
+                    <div class="p-3 rounded-lg text-sm font-medium bg-green-50 text-green-700 border border-green-200 cursor-pointer hover:bg-green-100">7</div>
+                </div>
+            </div>
+
+            <!-- Doctor Profile Card -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <h3 class="text-xl font-semibold mb-4 flex items-center space-x-2">
+                    <span>Doctor Profile</span>
+                    <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full">DEMO</span>
+                </h3>
+                <div class="flex items-start space-x-4">
+                    <div class="w-20 h-20 bg-gray-200 rounded-full border-2 border-gray-300 flex items-center justify-center">
+                        <i data-lucide="user" class="w-8 h-8 text-gray-500"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="text-lg font-semibold text-gray-800">Dr. Rajesh Mehta</h4>
+                        <p class="text-blue-600 font-medium">Pulmonology Specialist</p>
+                        <div class="flex items-center space-x-1 mt-1">
+                            <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-current"></i>
+                            <span class="text-sm text-gray-600">4.8 (127 reviews)</span>
+                        </div>
+                        <div class="flex items-center space-x-1 mt-2 text-sm text-gray-600">
+                            <i data-lucide="map-pin" class="w-4 h-4"></i>
+                            <span>CityCare Hospital</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Time Slots -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-xl font-semibold mb-6 flex items-center space-x-2">
+                    <i data-lucide="clock" class="w-5 h-5"></i>
+                    <span>Available Time Slots</span>
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="p-6 rounded-lg border-2 border-gray-300 text-gray-700 hover:border-blue-500 hover:bg-blue-50 cursor-pointer">
+                        <div class="text-center">
+                            <div class="text-xl font-semibold mb-2">10:00 AM</div>
+                            <div class="text-sm text-gray-600 mb-1">Dr. Mehta</div>
+                            <div class="text-xs text-gray-500 mb-2">CityCare Hospital</div>
+                            <div class="text-sm text-green-600 font-medium">Available</div>
+                        </div>
+                    </div>
+                    <div class="p-6 rounded-lg border-2 border-gray-300 text-gray-700 hover:border-blue-500 hover:bg-blue-50 cursor-pointer">
+                        <div class="text-center">
+                            <div class="text-xl font-semibold mb-2">11:00 AM</div>
+                            <div class="text-sm text-gray-600 mb-1">Dr. Mehta</div>
+                            <div class="text-xs text-gray-500 mb-2">CityCare Hospital</div>
+                            <div class="text-sm text-green-600 font-medium">Available</div>
+                        </div>
+                    </div>
+                    <div class="p-6 rounded-lg border-2 border-gray-200 text-gray-400 cursor-not-allowed">
+                        <div class="text-center">
+                            <div class="text-xl font-semibold mb-2">12:00 PM</div>
+                            <div class="text-sm text-gray-600 mb-1">Dr. Mehta</div>
+                            <div class="text-xs text-gray-500 mb-2">CityCare Hospital</div>
+                            <div class="text-sm text-red-600 font-medium">Booked</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="scan-analysis" class="max-w-7xl mx-auto hidden">
+            <div class="bg-yellow-100 border border-yellow-300 rounded-lg p-3 mb-6">
+                <div class="flex items-center space-x-2">
+                    <i data-lucide="alert-triangle" class="w-5 h-5 text-yellow-600"></i>
+                    <span class="font-medium text-yellow-800">DEMO — Image Analysis Simulated</span>
+                </div>
+            </div>
+            
+            <!-- Upload Section -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <h3 class="text-xl font-semibold mb-4 flex items-center space-x-2">
+                    <i data-lucide="upload" class="w-5 h-5"></i>
+                    <span>Upload Scans</span>
+                    <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full">DEMO</span>
+                </h3>
+                <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-purple-500 transition-colors">
+                    <i data-lucide="upload" class="w-12 h-12 mx-auto mb-4 text-gray-400"></i>
+                    <p class="text-lg font-medium mb-2">Upload Medical Images</p>
+                    <p class="text-sm text-gray-500 mb-4">Drag & drop or click to select files</p>
+                    <button class="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
+                        Choose Files
+                    </button>
+                </div>
+            </div>
+
+            <!-- Image Display with Heatmap -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <h3 class="text-xl font-semibold mb-4 flex items-center space-x-2">
+                    <i data-lucide="brain" class="w-5 h-5"></i>
+                    <span>Scan Analysis</span>
+                    <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full">DEMO</span>
+                </h3>
+                <div class="relative bg-gray-100 rounded-lg p-4">
+                    <div class="relative inline-block">
+                        <div class="w-80 h-60 bg-gray-200 rounded-lg border-2 border-gray-300 flex items-center justify-center">
+                            <div class="text-center">
+                                <div class="text-4xl mb-2">🫁</div>
+                                <p class="text-sm text-gray-600">Chest X-ray (DEMO)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex items-center justify-center space-x-4">
+                        <button class="px-4 py-2 rounded-lg font-medium bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors flex items-center space-x-2">
+                            <i data-lucide="eye" class="w-4 h-4"></i>
+                            <span>Show Heatmap</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scan Insights -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center space-x-2">
+                        <i data-lucide="file-text" class="w-5 h-5"></i>
+                        <span>Scan Insights</span>
+                        <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full">DEMO</span>
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <i data-lucide="thermometer" class="w-5 h-5 text-red-500"></i>
+                                <span class="font-semibold text-red-800">Predicted Condition</span>
+                            </div>
+                            <p class="text-lg font-bold text-red-700">Pneumonia</p>
+                            <div class="mt-2">
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span>Confidence</span>
+                                    <span>92%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-red-500 h-2 rounded-full" style="width: 92%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-orange-50 border border-orange-200 rounded-lg p-4">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <i data-lucide="alert-triangle" class="w-5 h-5 text-orange-500"></i>
+                                <span class="font-semibold text-orange-800">Urgency Level</span>
+                            </div>
+                            <p class="text-lg font-bold text-orange-700">High</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="dashboard" class="max-w-6xl mx-auto hidden">
+            <div class="bg-yellow-100 border border-yellow-300 rounded-lg p-3 mb-6">
+                <div class="flex items-center space-x-2">
+                    <i data-lucide="alert-triangle" class="w-5 h-5 text-yellow-600"></i>
+                    <span class="font-medium text-yellow-800">DEMO — All Data Simulated</span>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center">
+                    <i data-lucide="activity" class="w-8 h-8 mr-3"></i>
+                    Patient Dashboard
+                </h2>
+                <p class="text-gray-600 mb-4">Comprehensive overview with statistics and referral report generation.</p>
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <p class="text-blue-800">✅ Full dashboard with referral reports implemented in DEMO version</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 border-t mt-12">
+        <div class="container mx-auto px-4 py-4 text-center text-sm text-gray-600">
+            MediNova Prototype — Demo Version
+        </div>
+    </footer>
+
+    <script>
+        let chatHistory = [];
+        
+        function showPage(page) {
+            // Hide all pages
+            document.querySelectorAll('[id$="-checker"], [id$="-booking"], [id$="-analysis"], [id$="dashboard"]').forEach(el => el.classList.add('hidden'));
+            // Show selected page
+            document.getElementById(page).classList.remove('hidden');
+            
+            // Update navigation
+            document.querySelectorAll('nav button').forEach(btn => {
+                btn.className = 'flex-1 py-4 px-4 text-center font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50';
+            });
+            event.target.closest('button').className = 'flex-1 py-4 px-4 text-center font-medium text-blue-600 border-b-2 border-blue-600 bg-blue-50';
+        }
+        
+        function analyzeSymptoms() {
+            const input = document.getElementById('symptom-input');
+            const symptoms = input.value.trim();
+            
+            if (!symptoms) return;
+            
+            // Add user message
+            addChatMessage('user', symptoms);
+            
+            // Simulate AI analysis
+            setTimeout(() => {
+                const analysis = {
+                    specialist: 'Pulmonology',
+                    severity: 'Medium',
+                    summary: 'Possible pneumonia. Recommend chest X-ray.',
+                    confidence: 87
+                };
+                addChatMessage('ai', analysis);
+            }, 2000);
+            
+            input.value = '';
+        }
+        
+        function addChatMessage(type, content) {
+            const analysisResults = document.getElementById('analysis-results');
+            const chatHistory = document.getElementById('chat-history');
+            
+            if (type === 'user') {
+                // Add to chat history
+                const historyItem = document.createElement('div');
+                historyItem.className = 'text-sm';
+                historyItem.innerHTML = `
+                    <p class="font-medium text-gray-800 truncate">${content}</p>
+                    <p class="text-gray-500 text-xs">${new Date().toLocaleTimeString()}</p>
+                `;
+                chatHistory.appendChild(historyItem);
+                
+                // Add to analysis results
+                const userMessage = document.createElement('div');
+                userMessage.className = 'bg-blue-50 border border-blue-200 rounded-lg p-4';
+                userMessage.innerHTML = `
+                    <div class="flex items-start space-x-3">
+                        <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                            <span class="text-white font-bold text-sm">U</span>
+                        </div>
+                        <div>
+                            <p class="font-medium text-blue-800">You:</p>
+                            <p class="text-gray-700 mt-1">${content}</p>
+                        </div>
+                    </div>
+                `;
+                analysisResults.appendChild(userMessage);
+            } else {
+                // Add AI response to analysis results
+                const aiMessage = document.createElement('div');
+                aiMessage.className = 'bg-gradient-to-r from-green-50 to-blue-50 border border-green-200 rounded-lg p-6';
+                aiMessage.innerHTML = `
+                    <div class="flex items-start space-x-3">
+                        <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                            <i data-lucide="brain" class="w-4 h-4 text-white"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="font-medium text-green-800 mb-4">AI Analysis:</p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                                <div class="bg-white p-4 rounded-lg shadow-sm">
+                                    <p class="text-sm font-medium text-gray-600 mb-1">Specialist</p>
+                                    <p class="font-semibold text-blue-600">${content.specialist}</p>
+                                </div>
+                                <div class="bg-white p-4 rounded-lg shadow-sm">
+                                    <p class="text-sm font-medium text-gray-600 mb-1">Severity</p>
+                                    <span class="px-2 py-1 rounded-full text-xs font-medium bg-yellow-500 text-white">${content.severity}</span>
+                                </div>
+                                <div class="bg-white p-4 rounded-lg shadow-sm">
+                                    <p class="text-sm font-medium text-gray-600 mb-1">Confidence</p>
+                                    <p class="font-semibold text-green-600">${content.confidence}%</p>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white p-4 rounded-lg shadow-sm">
+                                <p class="text-sm font-medium text-gray-600 mb-2">Summary</p>
+                                <p class="text-gray-700">${content.summary}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                analysisResults.appendChild(aiMessage);
+                
+                // Show analysis results
+                analysisResults.classList.remove('hidden');
+            }
+        }
+        
+        // Allow Enter key to analyze
+        document.getElementById('symptom-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                analyzeSymptoms();
+            }
+        });
+        
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>

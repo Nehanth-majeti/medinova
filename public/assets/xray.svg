@@ -1,0 +1,9 @@
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="#f8fafc"/>
+  <rect x="50" y="50" width="300" height="200" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2"/>
+  <circle cx="150" cy="120" r="30" fill="#94a3b8" opacity="0.6"/>
+  <circle cx="250" cy="140" r="25" fill="#94a3b8" opacity="0.4"/>
+  <path d="M100 100 L300 200" stroke="#64748b" stroke-width="2" opacity="0.5"/>
+  <path d="M100 200 L300 100" stroke="#64748b" stroke-width="2" opacity="0.5"/>
+  <text x="200" y="280" text-anchor="middle" fill="#64748b" font-family="Arial" font-size="14">Chest X-Ray (DEMO)</text>
+</svg>
